@@ -1,0 +1,69 @@
+{% extends 'eshop/base.html' %}
+{% load static %}
+{% block body %}
+<br>
+<div class="container text-center">
+    <h6 class="bg-success px-auto mx-auto w-75 rounded py-2 text-white">
+        Delivering to: <strong>{{ name }}</strong>
+    </h6>
+</div>
+<br />
+<div class="container">
+    <div class="col-md-7 mx-auto">
+        <div class="row m-0 p-0">
+            <div class="col-4 px-1 text-center">
+                <p class="py-1 rounded disabled small" style="
+              border: solid 2px rgb(0, 0, 0);
+              color: rgb(0, 0, 0);
+              background: rgba(0, 255, 0, 0.144);
+            ">
+                    Cart
+                </p>
+            </div>
+            <div class="col-4 px-1 text-center">
+                <p class="py-1 rounded disabled small" style="
+              border: solid 2px rgb(0, 0, 0);
+              color: rgb(0, 0, 0);
+              background: rgba(0, 255, 0, 0.144);
+            ">
+                    Address
+                </p>
+            </div>
+            <div class="col-4 px-1 text-center">
+                <p class="py-1 rounded small disabled" style="
+              border: solid 2px rgb(0, 0, 0);
+              color: rgb(0, 0, 0);
+              background: rgba(0, 255, 0, 0.144);
+            ">
+                    Payment
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="container">
+    <div class="col-md-6 mx-auto text-center">
+        <h5><strong>Your order is complete</strong></h5>
+        <p class="text-muted small">
+            You will be recieving a confirmation mail with order details
+        </p>
+        <br />
+        <a class="px-4 py-2 small disabled" style="border: solid 2px black">Your order id: {{ ordercode }}</a>
+        <br />
+        <br />
+        <br />
+        <p class="text-muted small">
+            You are logged out for security purpose.
+        </p>
+        <a href="{% url 'login_form' %}" class="px-5 py-2 bg-white text-black small" style="
+          border: solid 2px rgb(0, 132, 255);
+          box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
+          border-radius: 40px;
+        ">
+            Log in
+        </a>
+    </div>
+</div>
+{% endblock %}

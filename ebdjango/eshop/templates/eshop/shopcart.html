@@ -1,0 +1,142 @@
+{% extends 'eshop/base.html' %}
+{% block title %}
+Cart
+{% endblock %}
+{% block body %}
+<br>
+{% if shopcart %}
+<div class="container text-center">
+    <h6 class="bg-success px-auto mx-auto w-75 rounded py-2 text-white">
+        Delivering to: <strong>{{ request.user.username }}</strong>
+    </h6>
+</div>
+<br />
+<div class="container">
+    <div class="col-md-7 mx-auto">
+      <div class="row m-0 p-0">
+        <div class="col-4 px-1 text-center">
+          <p
+            class="py-1 rounded disabled small"
+            style="
+              border: solid 2px rgb(0, 0, 0);
+              color: rgb(0, 0, 0);
+              background: rgba(0, 255, 0, 0.144);
+            "
+          >
+            Cart
+          </p>
+        </div>
+        <div class="col-4 px-1 text-center">
+          <p
+            class="py-1 rounded disabled small"
+            style="border: solid 2px black"
+          >
+            Address
+          </p>
+        </div>
+        <div class="col-4 px-1 text-center">
+          <p
+            class="py-1 rounded small disabled"
+            style="border: solid 2px black"
+          >
+            Payment
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+<div class="container">
+    <div class="col-md-6 mx-auto">
+        <h4 class="" style="font-weight: 600">Price details</h4>
+        <hr />
+        <div class="row m-0 p-0">
+            <div class="col-6 m-0 p-0">Break down</div>
+            <div class="col-6 text-right">
+                {% for item in shopcart %}
+                    <p><i class="fas fa-rupee-sign    "> </i> {% if item.product.variant == 'None' %}{{ item.product.price }}{% else %}{{ item.variant.price }}{% endif %} x {{ item.quantity }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <hr />
+        <div class="row m-0 p-0">
+            <div class="col-6 m-0 p-0"><strong>Total</strong></div>
+            <div class="col-6 text-right"><strong><i class="fas fa-rupee-sign    "></i> {{ total }}</strong></div>
+        </div>
+        <br />
+        <div class="row m-0 p-0">
+            <a href="{% url 'payu_demo' %}" class="bg-dark text-white border px-3 py-2"
+                style="border-radius: 15px">Pre-payment</a>
+            <a href="{% url 'cod' %}" class="px-3 py-2 mx-1 text-dark"
+                style="border-radius: 15px; border: solid 2px black">COD</a>
+        </div>
+
+        <br />
+        <br />
+        <div class="container m-0 p-0">
+            <h6 style="font-weight: 600">Cart</h6>
+            <br />
+            <!--Loop start here-->
+            {% for item in shopcart %}
+            <div class="p-0 shadow" style="border-radius: 15px; background: #efffef">
+                <div class="row m-0 p-0">
+                    <div class="col-4 m-0 p-0">
+                        <img class="w-100 h-100 m-0 p-0" style="
+                      border-radius: 15px 0 0 15px;
+                      object-fit: cover;
+                      object-position: center;
+                    " src="{{ item.product.image.url }}"
+                            alt="" />
+                    </div>
+                    <div class="col-8">
+                        <div class="row mb-2">
+                            <div class="col-12"><strong class="text-danger">{{ item.product.brand_name }}</strong></div>
+                            <div class="col-7">
+                                <p class="p-0 pt-2 m-0 small" style="line-height: 100%">
+                                    <strong><b>{{ item.product.title }}</b></strong>
+                                </p>
+                            </div>
+                            <div class="col-5">
+                                <p class="p-0 pt-2 m-0 small">
+                            <strong><i class="fas fa-rupee-sign"></i> <b>{% if item.product.variant == 'None' %} {{ item.product.price }} {% else %} {{ item.variant.price }} {% endif %}
+                                </b></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            {% if item.variant != 'None' %}
+                            <div class="col-7">
+                                <p class="small text-muted p-0 m-0">Variant</p>
+                                <p class="p-0 m-0 small"><strong>{{ item.variant }}</strong></p>
+                            </div>
+                            {% endif %}
+                            <div class="col-5">
+                                <p class="small text-muted p-0 m-0">Quantity</p>
+                                <p class="p-0 m-0 small"><strong>{{ item.quantity }}</strong></p>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                <a href="/order/deletefromcart/{{ item.id }}" onclick="return confirm('Delete! Are you sure?')" class="p-0 m-0 small" style="color: rgb(68, 68, 68)"><strong><b>Remove</b></strong></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <br />
+            <!--Loop end here-->
+            <br />
+            <br />
+        </div>        
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <h2 style="font-weight: 600">Cart</h2>
+    There is nothing in your cart!
+</div>
+<br>
+{% endif %}
+{% endblock %}
